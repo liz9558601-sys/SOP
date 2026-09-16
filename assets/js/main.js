@@ -180,24 +180,25 @@
     addEventListener('resize', resize);
 
     const parts = [];
-    const MAX = 110;
+    const MAX = 70;
     let last = 0;
 
     addEventListener('mousemove', e => {
       const now = performance.now();
-      if (now - last < 22) return;
+      if (now - last < 26) return;
       last = now;
-      const n = 3;
-      for (let i = 0; i < n; i++) {
+      for (let i = 0; i < 2; i++) {
         if (parts.length >= MAX) parts.shift();
         parts.push({
           x: e.clientX + (Math.random() - .5) * 26,
           y: e.clientY + (Math.random() - .5) * 26,
-          vx: (Math.random() - .5) * .42,
-          vy: (Math.random() - .5) * .42 - .05,
-          max: 900 + Math.random() * 600,
+          vx: (Math.random() - .5) * .3,
+          vy: (Math.random() - .5) * .3 - .04,
+          max: 600 + Math.random() * 400,
           born: now,
-          s: 1 + (Math.random() * 2 | 0)
+          s: Math.random() < .15 ? 3 : (Math.random() < .55 ? 2 : 1),
+          ph: Math.random() * Math.PI * 2,
+          sp: .006 + Math.random() * .008
         });
       }
     }, { passive: true });
@@ -208,7 +209,9 @@
         const p = parts[i], age = now - p.born;
         if (age > p.max) { parts.splice(i, 1); continue; }
         p.x += p.vx; p.y += p.vy;
-        const a = (1 - age / p.max) * 0.2;
+        const fade = 1 - age / p.max;
+        const tw = .5 + .5 * Math.sin(p.ph + age * p.sp);
+        const a = fade * (.45 + .55 * tw) * .15;
         ctx.fillStyle = `rgba(26,28,28,${a.toFixed(3)})`;
         ctx.fillRect(p.x | 0, p.y | 0, p.s, p.s);
       }
