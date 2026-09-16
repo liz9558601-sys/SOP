@@ -163,20 +163,4 @@
     steps.forEach(s => sio.observe(s));
   }
 
-  /* ============ custom cursor follower ============ */
-  const cur = document.getElementById('cursor');
-  const finePointer = matchMedia('(pointer: fine)').matches;
-  if (cur && finePointer) {
-    let cx = -100, cy = -100;
-    const move = (x, y) => {
-      cur.style.transform = `translate3d(${x - 7}px, ${y}px, 0)`;
-    };
-    addEventListener('mousemove', e => {
-      cx = e.clientX; cy = e.clientY;
-      if (!cur.classList.contains('on')) cur.classList.add('on');
-      move(cx, cy);
-    }, { passive: true });
-    addEventListener('mouseleave', () => cur.classList.remove('on'));
-    addEventListener('blur', () => cur.classList.remove('on'));
-  }
 })();
