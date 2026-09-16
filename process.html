@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>流程 · AI 剧情向视频生产 SOP</title>
+<meta name="description" content="六步流水线：从竞品拆解到成片交付。每一步都有明确的输入、提示词与交付物。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Sometype+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<canvas id="particles" aria-hidden="true"></canvas>
+<div class="prog" id="prog"></div>
+
+<div class="mmenu" id="mmenu">
+  <a href="index.html"><i>00</i>关于</a>
+  <a href="process.html"><i>01</i>流程</a>
+  <a href="library.html"><i>02</i>提示词库</a>
+  <p class="mmenu__foot">李煜 · 13450725586</p>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="index.html" class="brand">
+      <span class="brand__dot"></span>
+      创作流 <small>AI VIDEO SOP</small>
+    </a>
+    <nav class="nav__links">
+      <a href="index.html">关于</a>
+      <a href="process.html" class="is-active">流程</a>
+      <a href="library.html">提示词库</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:.6rem">
+      <a href="library.html" class="btn btn--sm"><span>进入提示词库</span><span class="btn__arw">↗</span></a>
+      <button class="burger" id="burger" aria-label="打开菜单" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ========== PROCESS HEADER ========== -->
+<section class="sec" style="padding-bottom:clamp(3rem,5vw,4.5rem)">
+  <div class="wrap">
+    <div class="sec__head">
+      <div>
+        <p class="tag rv">[ PROCESS · 六步流水线 ]</p>
+        <h2 class="h2 rv" style="margin-top:1.25rem">从一条爆款<br>到一条成片。</h2>
+      </div>
+      <p class="lead rv">
+        上游不干净，下游一定崩。这套流程的成败，几乎都压在第 2 步和第 3 步。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROCESS ========== -->
+<section id="process" style="padding-top:0">
+  <div class="wrap">
+    <div class="proc">
+
+      <aside class="proc__nav" id="procNav">
+        <button data-i="0" class="on"><i>01</i><b>拆解竞品</b></button>
+        <button data-i="1"><i>02</i><b>脚本迁移</b></button>
+        <button data-i="2"><i>03</i><b>清洁故事板</b></button>
+        <button data-i="3"><i>04</i><b>Prompt 工程</b></button>
+        <button data-i="4"><i>05</i><b>生成画面</b></button>
+        <button data-i="5"><i>06</i><b>拼接交付</b></button>
+      </aside>
+
+      <div class="steps">
+
+        <!-- 01 -->
+        <article class="step rv" id="s1">
+          <div class="step__top">
+            <span class="step__num">01</span>
+            <span class="step__tagline">找到「想买」发生的那一秒</span>
+          </div>
+          <h3>拆解竞品爆款视频</h3>
+          <p class="step__desc">
+            把一条已经跑通的爆款视频上传给大模型，让它还原出完整的时间轴与逐句文案，
+            并定位用户产生购买冲动的<strong style="font-weight:500;color:var(--dark)">具体秒数与诱因</strong>。
+          </p>
+          <div class="chips">
+            <span class="chip"><u>输入</u>竞品爆款视频 MP4</span>
+            <span class="chip"><u>输出</u>时间轴脚本 + 冲动时刻</span>
+            <span class="chip"><u>工具</u>GPT</span>
+          </div>
+          <ul class="pts">
+            <li>得到可对照的时间轴与逐句文案</li>
+            <li>定位「想买冲动」发生在第几秒，并归因：画面 / 文案 / 音效 / 评论区引导 / 其他</li>
+            <li>这个「冲动时刻」是后面脚本迁移必须原样保留的锚点</li>
+          </ul>
+          <div class="pbox">
+            <div class="pbox__hd">
+              <span class="mono">Prompt · 01</span>
+              <button class="copy" data-copy="p1">复制</button>
+            </div>
+            <pre id="p1">详细拆解该视频脚本，包括时间轴和文案，并分析这条视频里，用户产生"想买"冲动的具体时刻是第几秒，原因是（画面 / 文案 / 音效 / 评论区引导 / 其他）。</pre>
+            <button class="pbox__more">展开全文</button>
+          </div>
+        </article>
+
+        <!-- 02 -->
+        <article class="step rv" id="s2">
+          <div class="step__top">
+            <span class="step__num">02</span>
+            <span class="step__tagline">换产品，不换骨架</span>
+          </div>
+          <h3>迁移成自有产品脚本</h3>
+          <p class="step__desc">
+            保留竞品的节奏、镜头转换、人物形象与冲动时刻，只把产品、成分与本地化场景替换掉。
+            输出结构固定为：<strong style="font-weight:500;color:var(--dark)">一个问题 + 一个生活场景 + 一个产品动作 + 一个 CTA</strong>。
+          </p>
+          <div class="chips">
+            <span class="chip"><u>输入</u>产品图 + 成分功效</span>
+            <span class="chip"><u>输出</u>自有产品版爆款脚本</span>
+            <span class="chip"><u>工具</u>GPT</span>
+          </div>
+          <ul class="pts">
+            <li>首次需完整介绍产品成分与功效；同一对话内跑通后，模型能记住上下文，后续可直接用简化指令</li>
+            <li>结尾定格画面固定：一只手展示产品正面包装，另一只手指指向画面左下角</li>
+            <li>本地化场景、语言与目标市场同步迁移，不要照搬原片语境</li>
+          </ul>
+          <div class="pbox">
+            <div class="pbox__hd">
+              <span class="mono">Prompt · 02 · 完整版</span>
+              <button class="copy" data-copy="p2">复制</button>
+            </div>
+            <pre id="p2">根据产品成分组成和产品功效（成分与功效说明），并迁移原视频脚本节奏（画面风格、人物形象、核心结构、本地化场景）与用户"想买"的冲动时刻，输出一份专属 [产品名] 版本的爆款脚本（一个问题＋一个生活场景＋一个产品动作＋一个 CTA），脚本最后的画面定格在人物一只手展示产品正面包装，另一只手指指向画面左下角。</pre>
+            <button class="pbox__more">展开全文</button>
+          </div>
+          <div class="pbox" style="margin-top:.85rem">
+            <div class="pbox__hd">
+              <span class="mono">Prompt · 02 · 简化版（跑通后）</span>
+              <button class="copy" data-copy="p2b">复制</button>
+            </div>
+            <pre id="p2b">迁移上传的视频文件脚本节奏、镜头转换、人物形象/动作、用户"想买"的冲动时刻，输出一份专属 [产品名] 产品版本的爆款脚本。</pre>
+            <button class="pbox__more">展开全文</button>
+          </div>
+        </article>
+
+        <!-- 03 -->
+        <article class="step rv" id="s3">
+          <div class="step__top">
+            <span class="step__num">03</span>
+            <span class="step__tagline">画面里不能有多余的东西</span>
+          </div>
+          <h3>生成清洁版故事板</h3>
+          <p class="step__desc">
+            按脚本的完整时间轴，输出竖版分镜图。核心是「清洁」：
+            <strong style="font-weight:500;color:var(--dark)">除产品包装外，画面里不出现任何文字与箭头符号</strong>——
+            画上去的东西，视频生成时会原样长出来。
+          </p>
+          <div class="chips">
+            <span class="chip"><u>输入</u>脚本 + 产品图</span>
+            <span class="chip"><u>输出</u>竖版清洁故事板</span>
+            <span class="chip"><u>工具</u>GPT</span>
+          </div>
+          <ul class="pts">
+            <li>人物统一：成年形象、成熟面容、成年身材比例，不出现稚嫩幼态的脸，且非真人形象</li>
+            <li>人物前后保持一致，画面风格统一为高饱和、电影级 Q 版 3D</li>
+            <li>出错时的两种修法：① 在原对话框重新点一次发送，整体重生成；② 针对不正确的产品包装单独修改</li>
+          </ul>
+          <div class="pbox">
+            <div class="pbox__hd">
+              <span class="mono">Prompt · 03</span>
+              <button class="copy" data-copy="p3">复制</button>
+            </div>
+            <pre id="p3">严格按照 [脚本名] 的完整时间轴脚本内容，输出清洁版的竖版故事板（人物全都是成年形象、成熟的面容、成年身材比例，不出现稚嫩幼态的脸，但不是真人形象，人物前后保持一致，除了产品包装外不出现任何文字，画面风格为高饱和、电影级 Q 版 3D）。</pre>
+            <button class="pbox__more">展开全文</button>
+          </div>
+        </article>
+
+        <!-- 04 -->
+        <article class="step rv" id="s4">
+          <div class="step__top">
+            <span class="step__num">04</span>
+            <span class="step__tagline">把分镜翻译成机器语言</span>
+          </div>
+          <h3>生成视频 Prompt</h3>
+          <p class="step__desc">
+            把故事板情节拆成多个 15 秒镜头，逐段生成可直接投喂视频模型的标准 Prompt。
+            每段都<strong style="font-weight:500;color:var(--dark)">独立完整、不依赖前文</strong>，
+            并绑定固定人物形象与固定音色标签。
+          </p>
+          <div class="chips">
+            <span class="chip"><u>输入</u>清洁版故事板</span>
+            <span class="chip"><u>输出</u>镜头级 Prompt 组</span>
+            <span class="chip"><u>工具</u>GPT</span>
+          </div>
+          <ul class="pts">
+            <li>节奏：TikTok 快节奏，画面自然流畅，人物对口型说目标语言文案</li>
+            <li>每个情节的高潮部分配上夸张音效，人物使用固定音色</li>
+            <li>因为已内含音效，后续剪辑阶段可以不加背景音乐</li>
+            <li>Prompt 格式要求：对应故事板第几格 + 固定人物形象 + 音色标签 + 镜头级细分</li>
+          </ul>
+          <div class="pbox">
+            <div class="pbox__hd">
+              <span class="mono">Prompt · 04</span>
+              <button class="copy" data-copy="p4">复制</button>
+            </div>
+            <pre id="p4">严格按照上传的故事板，将故事板的情节拆分成 [N] 个 15 秒画面，TikTok 快节奏，画面自然流畅，要求生成的视频人物要对口型，说 [目标语言] 文案（对应 [脚本名]），视频画面为高饱和、电影级 Q 版 3D 风格，每个情节的高潮部分用上夸张的音效，人物有对应的固定音色，直接输出适合 [模型名] 的标准 Prompt 格式（每一段 Prompt 都是独立完整的，不依赖前文：对应故事板第几格画面、固定人物形象、固定人物对应音色标签版、按每段再细拆成镜头级 Prompt）。</pre>
+            <button class="pbox__more">展开全文</button>
+          </div>
+        </article>
+
+        <!-- 05 -->
+        <article class="step rv" id="s5">
+          <div class="step__top">
+            <span class="step__num">05</span>
+            <span class="step__tagline">参考图决定一致性</span>
+          </div>
+          <h3>生成 AI 视频画面</h3>
+          <p class="step__desc">
+            把故事板、产品图与对应 Prompt 一起投给视频生成模型，逐段出画面。
+            关键在于<strong style="font-weight:500;color:var(--dark)">同时给参考图</strong>——
+            这是保证人物与包装前后一致的主要手段。
+          </p>
+          <div class="chips">
+            <span class="chip"><u>输入</u>故事板 + 产品图 + Prompt</span>
+            <span class="chip"><u>输出</u>分段视频素材</span>
+            <span class="chip"><u>工具</u>TK 广告后台 / 即梦</span>
+          </div>
+          <ul class="pts">
+            <li>即梦路径：视频生成 → 全能参考 → 上传故事板、产品图、Prompt</li>
+            <li>逐段生成，一段对应一格故事板，不要一次性丢整条</li>
+            <li>跑出异常片段时，优先检查参考图是否被正确识别</li>
+          </ul>
+          <div class="pbox">
+            <div class="pbox__hd">
+              <span class="mono">Prompt · 05</span>
+              <button class="copy" data-copy="p5">复制</button>
+            </div>
+            <pre id="p5">使用第 04 步生成的对应 Prompt，配合故事板与产品图作为参考输入，逐段生成画面。若使用即梦：选择「视频生成 - 全能参考」，上传故事板、产品图与 Prompt 后生成。</pre>
+            <button class="pbox__more">展开全文</button>
+          </div>
+        </article>
+
+        <!-- 06 -->
+        <article class="step rv" id="s6">
+          <div class="step__top">
+            <span class="step__num">06</span>
+            <span class="step__tagline">最后一道人工关</span>
+          </div>
+          <h3>拼接成片与交付</h3>
+          <p class="step__desc">
+            把所有分段画面按时间轴拼起来、上字幕、导出成片。
+            <strong style="font-weight:500;color:var(--dark)">字幕必须人工逐句核对</strong>——
+            自动识别并非 100% 准确，尤其是口播语种与产品名的部分。
+          </p>
+          <div class="chips">
+            <span class="chip"><u>输入</u>分段视频素材</span>
+            <span class="chip"><u>输出</u>完整成片</span>
+            <span class="chip"><u>工具</u>剪映 CapCut</span>
+          </div>
+          <ul class="pts">
+            <li>按脚本时间轴顺序拼接，检查镜头衔接是否跳帧</li>
+            <li>字幕人工复核，重点核对产品名、成分名与口播语种</li>
+            <li>音效已在生成阶段加入，可不加背景音乐；如需 BGM，注意不要压过人声</li>
+          </ul>
+
+          <!-- embedded results -->
+          <div class="videos">
+            <div class="videos__hd">
+              <div>
+                <h4>成品 · TikTok 橱窗号已跑通</h4>
+                <p>6 · 已成单成片示例</p>
+              </div>
+              <p class="tool">工具 · <b>TK 广告后台 / 即梦</b></p>
+            </div>
+            <div class="videos__row">
+              <div class="vitem">
+                <span class="vitem__cap">0729</span>
+                <video src="assets/videos/01-0729.mp4" controls preload="metadata" playsinline></video>
+              </div>
+              <div class="vitem">
+                <span class="vitem__cap">0804</span>
+                <video src="assets/videos/02-0804.mp4" controls preload="metadata" playsinline></video>
+              </div>
+              <div class="vitem">
+                <span class="vitem__cap">0810</span>
+                <video src="assets/videos/03-0810.mp4" controls preload="metadata" playsinline></video>
+              </div>
+              <div class="vitem">
+                <span class="vitem__cap">0821 · A</span>
+                <video src="assets/videos/04-0821.mp4" controls preload="metadata" playsinline></video>
+              </div>
+              <div class="vitem">
+                <span class="vitem__cap">0903</span>
+                <video src="assets/videos/05-0903.mp4" controls preload="metadata" playsinline></video>
+              </div>
+              <div class="vitem">
+                <span class="vitem__cap">0821 · B</span>
+                <video src="assets/videos/06-0821b.mp4" controls preload="metadata" playsinline></video>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PITFALLS ========== -->
+<section class="sec" id="pitfalls" style="padding-top:clamp(4rem,7vw,6rem)">
+  <div class="wrap">
+    <div class="sec__head">
+      <div>
+        <p class="tag rv">[ WATCH OUT ]</p>
+        <h2 class="h2 rv" style="margin-top:1.25rem">六个必踩的坑</h2>
+      </div>
+      <p class="lead rv">
+        这些是流程里最容易翻车的地方。每一条背后，都是一次返工换来的。
+      </p>
+    </div>
+
+    <div class="pits rv">
+      <div class="pit">
+        <span class="pit__n">01 / 合规</span>
+        <h4>绝对化与药品化用语</h4>
+        <p>功效宣称一旦越线，素材会被直接拒审。提前在脚本阶段就替换掉高危词。</p>
+        <div class="swap"><s>燃脂</s>→<em>辅助脂肪代谢</em></div>
+        <div class="swap"><s>阻断</s>→<em>拦截 / 延缓吸收</em></div>
+      </div>
+      <div class="pit">
+        <span class="pit__n">02 / 一致性</span>
+        <h4>人物形象幼态化</h4>
+        <p>不写明年龄约束，模型很容易生成稚嫩幼态的脸，直接影响成片质感和投放效果。</p>
+        <div class="swap"><em>成年形象 + 成熟面容 + 成年身材比例</em></div>
+      </div>
+      <div class="pit">
+        <span class="pit__n">03 / 画面</span>
+        <h4>故事板里画了箭头和文字</h4>
+        <p>故事板上出现的每一个符号都会被视频模型当成画面内容生成出来，最后变成画面里的脏东西。</p>
+        <div class="swap"><em>清洁版 = 除产品包装外无任何文字与符号</em></div>
+      </div>
+      <div class="pit">
+        <span class="pit__n">04 / 生成</span>
+        <h4>包装错位与人物扭曲</h4>
+        <p>参考图没被正确识别时的典型症状。要么整体重生成，要么单独修包装，不要硬用。</p>
+        <div class="swap"><em>原对话重新发送 / 包装单独修改</em></div>
+      </div>
+      <div class="pit">
+        <span class="pit__n">05 / 交付</span>
+        <h4>字幕直接信任自动识别</h4>
+        <p>自动字幕准确率不是 100%，产品名、成分名、口播语种是最常出错的三类。</p>
+        <div class="swap"><em>逐句人工核对后再导出</em></div>
+      </div>
+      <div class="pit">
+        <span class="pit__n">06 / 声音</span>
+        <h4>重复叠加背景音乐</h4>
+        <p>生成阶段已经内置了高潮音效，剪辑时再加 BGM 容易糊成一团，甚至压过人声。</p>
+        <div class="swap"><em>内含音效时可不加 BGM</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta rv">
+      <div class="glow"></div>
+      <p class="label" style="color:rgba(249,244,235,.5)">[ NEXT ]</p>
+      <h2>要把这条线搬到自己的产品上？</h2>
+      <p>提示词都整理好了。直接复制就能用。</p>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center">
+        <a href="library.html" class="btn btn--lime"><span>打开提示词库</span></a>
+        <a href="index.html" class="btn"><span>返回关于</span><span class="btn__arw">↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <p>© 2026 李煜 · AI 剧情向视频生产 SOP</p>
+    <nav>
+      <a href="index.html">关于</a>
+      <a href="process.html" class="is-active">流程</a>
+      <a href="library.html">提示词库</a>
+    </nav>
+  </div>
+</footer>
+</main>
+
+<button class="totop" id="totop" aria-label="回到顶部">↑</button>
+<div class="toast" id="toast">已复制到剪贴板</div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

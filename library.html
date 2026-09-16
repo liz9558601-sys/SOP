@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>提示词库 · AI 剧情向视频生产 SOP</title>
+<meta name="description" content="六步流程的全部提示词模板，按环节归档，可筛选、可一键复制。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Sometype+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<canvas id="particles" aria-hidden="true"></canvas>
+<div class="prog" id="prog"></div>
+
+<div class="mmenu" id="mmenu">
+  <a href="index.html"><i>00</i>关于</a>
+  <a href="process.html"><i>01</i>流程</a>
+  <a href="library.html"><i>02</i>提示词库</a>
+  <p class="mmenu__foot">李煜 · 13450725586</p>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a href="index.html" class="brand">
+      <span class="brand__dot"></span>
+      创作流 <small>AI VIDEO SOP</small>
+    </a>
+    <nav class="nav__links">
+      <a href="index.html">关于</a>
+      <a href="process.html">流程</a>
+      <a href="library.html" class="is-active">提示词库</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:.6rem">
+      <a href="process.html" class="btn btn--sm"><span>回到流程</span><span class="btn__arw">↗</span></a>
+      <button class="burger" id="burger" aria-label="打开菜单" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ========== HEADER ========== -->
+<section class="sec" style="padding-bottom:clamp(2rem,4vw,3rem)">
+  <div class="wrap">
+    <div class="sec__head">
+      <div>
+        <p class="tag rv">[ PROMPT LIBRARY ]</p>
+        <h2 class="h2 rv" style="margin-top:1.25rem">提示词库</h2>
+      </div>
+      <p class="lead rv">
+        全部提示词按环节归档。<strong style="font-weight:500;color:var(--dark)">[ 方括号 ]</strong> 部分是每次需要替换的变量。
+        点击卡片即可展开与复制。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== LIBRARY ========== -->
+<section style="padding-bottom:var(--sec)">
+  <div class="wrap">
+    <div class="lib rv">
+      <div class="filters" id="filters">
+        <button class="on" data-f="all">全部</button>
+        <button data-f="拆解">拆解</button>
+        <button data-f="脚本">脚本</button>
+        <button data-f="故事板">故事板</button>
+        <button data-f="视频">视频生成</button>
+        <button data-f="交付">交付</button>
+        <button class="bulk" id="bulk">复制当前 9 条</button>
+      </div>
+
+      <div class="cards" id="cards">
+
+        <article class="card" data-k="拆解">
+          <div class="card__hd"><span class="card__id">P-01</span><span class="card__kind">拆解</span></div>
+          <h4>竞品视频全量拆解</h4>
+          <pre>详细拆解该视频脚本，包括时间轴和文案，并分析这条视频里，用户产生"想买"冲动的具体时刻是第几秒，原因是（画面 / 文案 / 音效 / 评论区引导 / 其他）。</pre>
+          <div class="card__ft">
+            <button class="more">展开</button>
+            <button class="copy">复制</button>
+          </div>
+        </article>
+
+        <article class="card" data-k="脚本">
+          <div class="card__hd"><span class="card__id">P-02</span><span class="card__kind">脚本</span></div>
+          <h4>产品脚本迁移 · 完整版</h4>
+          <pre>根据产品成分组成和产品功效（成分与功效说明），并迁移原视频脚本节奏（画面风格、人物形象、核心结构、本地化场景）与用户"想买"的冲动时刻，输出一份专属 [产品名] 版本的爆款脚本（一个问题＋一个生活场景＋一个产品动作＋一个 CTA），脚本最后的画面定格在人物一只手展示产品正面包装，另一只手指指向画面左下角。</pre>
+          <div class="card__ft">
+            <button class="more">展开</button>
+            <button class="copy">复制</button>
+          </div>
+        </article>
+
+        <article class="card" data-k="脚本">
+          <div class="card__hd"><span class="card__id">P-03</span><span class="card__kind">脚本</span></div>
+          <h4>产品脚本迁移 · 简化版</h4>
+          <pre>迁移上传的视频文件脚本节奏、镜头转换、人物形象/动作、用户"想买"的冲动时刻，输出一份专属 [产品名] 产品版本的爆款脚本。</pre>
+          <div class="card__ft">
+            <button class="more">展开</button>
+            <button class="copy">复制</button>
+          </div>
+        </article>
+
+        <article class="card" data-k="故事板">
+          <div class="card__hd"><span class="card__id">P-04</span><span class="card__kind">故事板</span></div>
+          <h4>清洁版竖版故事板</h4>
+          <pre>严格按照 [脚本名] 的完整时间轴脚本内容，输出清洁版的竖版故事板（人物全都是成年形象、成熟的面容、成年身材比例，不出现稚嫩幼态的脸，但不是真人形象，人物前后保持一致，除了产品包装外不出现任何文字，画面风格为高饱和、电影级 Q 版 3D）。</pre>
+          <div class="card__ft">
+            <button class="more">展开</button>
+            <button class="copy">复制</button>
+          </div>
+        </article>
+
+        <article class="card" data-k="视频">
+          <div class="card__hd"><span class="card__id">P-05</span><span class="card__kind">视频生成</span></div>
+          <h4>镜头级视频 Prompt 组</h4>
+          <pre>严格按照上传的故事板，将故事板的情节拆分成 [N] 个 15 秒画面，TikTok 快节奏，画面自然流畅，要求生成的视频人物要对口型，说 [目标语言] 文案（对应 [脚本名]），视频画面为高饱和、电影级 Q 版 3D 风格，每个情节的高潮部分用上夸张的音效，人物有对应的固定音色，直接输出适合 [模型名] 的标准 Prompt 格式（每一段 Prompt 都是独立完整的，不依赖前文：对应故事板第几格画面、固定人物形象、固定人物对应音色标签版、按每段再细拆成镜头级 Prompt）。</pre>
+          <div class="card__ft">
+            <button class="more">展开</button>
+            <button class="copy">复制</button>
+          </div>
+        </article>
+
+        <article class="card" data-k="视频">
+          <div class="card__hd"><span class="card__id">P-06</span><span class="card__kind">视频生成</span></div>
+          <h4>参考图驱动的一致性生成</h4>
+          <pre>使用第 04 步对应的 Prompt，配合故事板与产品图作为参考输入，逐段生成画面。若使用即梦：选择「视频生成 - 全能参考」，上传故事板、产品图与 Prompt 后生成。</pre>
+          <div class="card__ft">
+            <button class="more">展开</button>
+            <button class="copy">复制</button>
+          </div>
+        </article>
+
+        <article class="card" data-k="脚本">
+          <div class="card__hd"><span class="card__id">P-07</span><span class="card__kind">脚本</span></div>
+          <h4>合规用语改写</h4>
+          <pre>请将以下文案改写为合规表述：避免使用「燃脂」等绝对化宣称，替换为「辅助脂肪代谢」或「有助于能量消耗」；避免使用「阻断」等药品词汇，可使用「拦截」或「延缓吸收」。</pre>
+          <div class="card__ft">
+            <button class="more">展开</button>
+            <button class="copy">复制</button>
+          </div>
+        </article>
+
+        <article class="card" data-k="交付">
+          <div class="card__hd"><span class="card__id">P-08</span><span class="card__kind">交付</span></div>
+          <h4>成片字幕终检清单</h4>
+          <pre>按脚本时间轴顺序拼接全部片段后，逐句人工核对字幕：① 镜头衔接是否跳帧 ② 产品名与成分名是否准确 ③ 口播语种是否正确 ④ 音效是否覆盖高潮点 ⑤ 是否需要补背景音乐（注意不要压过人声）。</pre>
+          <div class="card__ft">
+            <button class="more">展开</button>
+            <button class="copy">复制</button>
+          </div>
+        </article>
+
+        <article class="card" data-k="故事板">
+          <div class="card__hd"><span class="card__id">P-09</span><span class="card__kind">故事板</span></div>
+          <h4>故事板纠错重生成</h4>
+          <pre>若故事板中产品包装不正确、人物出现错位或扭曲，有两种办法：一是在原对话框重新点击一次发送，重新生成故事板；二是针对不正确的产品包装单独修改。</pre>
+          <div class="card__ft">
+            <button class="more">展开</button>
+            <button class="copy">复制</button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <p>© 2026 李煜 · AI 剧情向视频生产 SOP</p>
+    <nav>
+      <a href="index.html">关于</a>
+      <a href="process.html">流程</a>
+      <a href="library.html" class="is-active">提示词库</a>
+    </nav>
+  </div>
+</footer>
+</main>
+
+<button class="totop" id="totop" aria-label="回到顶部">↑</button>
+<div class="toast" id="toast">已复制到剪贴板</div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
