@@ -127,13 +127,19 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   transition:width .08s linear;pointer-events:none}
 
 /* ============================================================
-   particle canvas
+   custom cursor
    ============================================================ */
-#particles{
-  position:fixed;inset:0;z-index:90;pointer-events:none;
-  mix-blend-mode:multiply;opacity:.9;
+.cursor{
+  position:fixed;top:0;left:0;pointer-events:none;z-index:140;
+  transform:translate3d(-100px,-100px,0);opacity:0;
+  transition:transform .12s cubic-bezier(.2,.7,.3,1),opacity .2s;
+  will-change:transform;
 }
-@media(prefers-reduced-motion:reduce){#particles{display:none}}
+.cursor.on{opacity:1}
+.cursor svg{display:block}
+*,*::before,*::after{cursor:none}
+@media(pointer:coarse){.cursor{display:none !important}*,*::before,*::after{cursor:auto}}
+@media(prefers-reduced-motion:reduce){.cursor{transition:none}}
 
 /* ============================================================
    burger + mobile menu
