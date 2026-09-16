@@ -57,6 +57,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   font-weight:700;line-height:1.2;letter-spacing:-.02em;
   font-size:clamp(1.3rem,1.05rem + .9vw,2rem);
 }
+.h-line{display:block}
+.h-shift{margin-left:.8rem}
 .lead{
   font-size:clamp(1rem,.93rem + .5vw,1.35rem);
   line-height:1.62;font-weight:300;color:rgba(26,28,28,.72);
