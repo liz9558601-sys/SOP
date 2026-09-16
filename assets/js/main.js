@@ -163,58 +163,115 @@
     steps.forEach(s => sio.observe(s));
   }
 
-  /* ============ particle grain with trail ============ */
+  /* ============ 流体像素拖尾（复刻 lamalama WebGL 模型，2D canvas 实现）============
+     密度场 + 速度场，半拉格朗日平流 → 波浪般流动，渲染为带缝隙的黑色像素块
+     ============ */
   const cv = document.getElementById('particles');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(pointer: fine)').matches;
   if (cv && !reduce && finePointer) {
     const ctx = cv.getContext('2d');
-    let W, H;
-    const resize = () => {
+    const CELL = 10;
+    const INK = '#1A1C1C';
+    let W, H, cols, rows, N;
+    let d, dn, vx, vy;
+    let live = false, faded = false;
+
+    const alloc = () => {
       W = cv.width = innerWidth;
       H = cv.height = innerHeight;
       cv.style.width = W + 'px';
       cv.style.height = H + 'px';
+      cols = Math.ceil(W / CELL) + 2;
+      rows = Math.ceil(H / CELL) + 2;
+      N = cols * rows;
+      d = new Float32Array(N);
+      dn = new Float32Array(N);
+      vx = new Float32Array(N);
+      vy = new Float32Array(N);
+      live = false; faded = false;
     };
-    resize();
-    addEventListener('resize', resize);
+    alloc();
+    addEventListener('resize', alloc);
 
-    const parts = [];
-    const MAX = 70;
-    let last = 0;
+    /* 注入：光标处加墨 + 把位移推进速度场（高斯径向衰减） */
+    const inject = (mx, my, dx, dy, amp) => {
+      const cx = mx / CELL, cy = my / CELL, R = 5;
+      const i0 = Math.max(1, (cx - R) | 0), i1 = Math.min(cols - 2, (cx + R) | 0);
+      const j0 = Math.max(1, (cy - R) | 0), j1 = Math.min(rows - 2, (cy + R) | 0);
+      for (let j = j0; j <= j1; j++) {
+        for (let i = i0; i <= i1; i++) {
+          const ax = i - cx, ay = j - cy;
+          const inf = Math.exp(-(ax * ax + ay * ay) / (R * R * 0.32));
+          const k = j * cols + i;
+          if (d[k] < 1) d[k] = Math.min(1, d[k] + inf * 0.5 * amp);
+          vx[k] += dx * inf * 0.016;
+          vy[k] += dy * inf * 0.016;
+        }
+      }
+      live = true;
+    };
 
+    let lx = null, ly = null, lt = 0;
     addEventListener('mousemove', e => {
       const now = performance.now();
-      if (now - last < 26) return;
-      last = now;
-      for (let i = 0; i < 2; i++) {
-        if (parts.length >= MAX) parts.shift();
-        parts.push({
-          x: e.clientX + (Math.random() - .5) * 26,
-          y: e.clientY + (Math.random() - .5) * 26,
-          vx: (Math.random() - .5) * .3,
-          vy: (Math.random() - .5) * .3 - .04,
-          max: 600 + Math.random() * 400,
-          born: now,
-          s: Math.random() < .15 ? 3 : (Math.random() < .55 ? 2 : 1),
-          ph: Math.random() * Math.PI * 2,
-          sp: .006 + Math.random() * .008
-        });
+      if (lx !== null && now - lt > 12) {
+        const dx = e.clientX - lx, dy = e.clientY - ly;
+        const steps = Math.min(8, Math.max(1, (Math.hypot(dx, dy) / CELL) | 0));
+        for (let s = 1; s <= steps; s++) {
+          inject(lx + dx * s / steps, ly + dy * s / steps, dx / steps, dy / steps, 1 / steps);
+        }
+        lt = now;
       }
+      lx = e.clientX; ly = e.clientY;
     }, { passive: true });
 
-    const tick = (now) => {
-      ctx.clearRect(0, 0, W, H);
-      for (let i = parts.length - 1; i >= 0; i--) {
-        const p = parts[i], age = now - p.born;
-        if (age > p.max) { parts.splice(i, 1); continue; }
-        p.x += p.vx; p.y += p.vy;
-        const fade = 1 - age / p.max;
-        const tw = .5 + .5 * Math.sin(p.ph + age * p.sp);
-        const a = fade * (.45 + .55 * tw) * .15;
-        ctx.fillStyle = `rgba(26,28,28,${a.toFixed(3)})`;
-        ctx.fillRect(p.x | 0, p.y | 0, p.s, p.s);
+    /* 半拉格朗日平流 + 衰减 —— 波浪感的来源 */
+    const step = () => {
+      for (let j = 1; j < rows - 1; j++) {
+        for (let i = 1; i < cols - 1; i++) {
+          const k = j * cols + i;
+          let x = i - vx[k], y = j - vy[k];
+          if (x < .5) x = .5; else if (x > cols - 1.5) x = cols - 1.5;
+          if (y < .5) y = .5; else if (y > rows - 1.5) y = rows - 1.5;
+          const i0 = x | 0, j0 = y | 0, fx = x - i0, fy = y - j0;
+          const a = j0 * cols + i0, b = a + cols;
+          dn[k] = (d[a] * (1 - fx) + d[a + 1] * fx) * (1 - fy)
+            + (d[b] * (1 - fx) + d[b + 1] * fx) * fy;
+        }
       }
+      let sum = 0;
+      for (let k = 0; k < N; k++) {
+        const v = dn[k] * .962;
+        d[k] = v; sum += v;
+        vx[k] *= .93; vy[k] *= .93;
+      }
+      if (sum < .6) {
+        live = false; faded = true;
+        d.fill(0); vx.fill(0); vy.fill(0);
+      }
+    };
+
+    /* 渲染成带 1px 缝隙的像素块 */
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = INK;
+      const sz = CELL - 1;
+      for (let j = 0; j < rows; j++) {
+        for (let i = 0; i < cols; i++) {
+          const v = d[j * cols + i];
+          if (v > .012) {
+            ctx.globalAlpha = Math.min(v * .55, .42);
+            ctx.fillRect(i * CELL, j * CELL, sz, sz);
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+    };
+
+    const tick = () => {
+      if (live) { step(); draw(); }
+      else if (faded) { ctx.clearRect(0, 0, W, H); faded = false; }
       requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
