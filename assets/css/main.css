@@ -232,7 +232,7 @@ body.locked{overflow:hidden}
 .blk h2{font-size:clamp(1.4rem,1.1rem+1.3vw,2.1rem);font-weight:900;letter-spacing:-.03em;
   line-height:1.15;margin-bottom:1rem}
 .blk p{font-size:clamp(1rem,.95rem+.3vw,1.12rem);line-height:1.78;font-weight:300;
-  color:rgba(26,28,28,.75);max-width:60ch}
+  color:rgba(26,28,28,.75);max-width:44em}
 
 /* 我做了什么 */
 .did{list-style:none;display:grid;grid-template-columns:1fr;gap:1px;
@@ -259,7 +259,7 @@ body.locked{overflow:hidden}
 /* 我的思考 */
 .think{margin:0;padding-left:clamp(1.1rem,2.2vw,1.75rem);border-left:3px solid var(--dark)}
 .think p{font-size:clamp(1.1rem,1rem+.7vw,1.5rem);line-height:1.65;font-weight:500;
-  letter-spacing:-.02em;max-width:34ch;color:var(--dark)}
+  letter-spacing:-.02em;max-width:42em;color:var(--dark)}
 .think em{font-style:normal;color:var(--cream);background:var(--dark);
   padding:.12em .38em;border-radius:5px}
 
