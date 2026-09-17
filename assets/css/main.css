@@ -395,6 +395,7 @@ section{position:relative}
 }
 .vitem:hover{transform:translateY(-4px);box-shadow:0 26px 60px -30px rgba(26,28,28,.5)}
 .vitem video{width:100%;aspect-ratio:9/16;object-fit:cover;background:#000;display:block}
+.vitem--shift video{object-position:right center}
 .vitem__cap{position:absolute;left:.65rem;top:.65rem;font-family:var(--mono);font-size:.62rem;
   letter-spacing:.1em;padding:.2rem .55rem;border-radius:6px;
   background:rgba(249,244,235,.92);color:var(--dark);font-weight:700;text-transform:uppercase}
