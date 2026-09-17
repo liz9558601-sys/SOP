@@ -374,14 +374,21 @@ section{position:relative}
   display:flex;flex-wrap:nowrap;gap:.85rem;overflow-x:auto;
   padding:1rem 0 1.25rem;margin:-1rem 0 -1.25rem;
   scroll-snap-type:x mandatory;scroll-padding-left:0;
-  -webkit-overflow-scrolling:touch;
+  -webkit-overflow-scrolling:touch;touch-action:pan-x;
+  position:relative;
   scrollbar-width:thin;scrollbar-color:rgba(26,28,28,.25) transparent;
 }
 .videos__row::-webkit-scrollbar{height:6px}
 .videos__row::-webkit-scrollbar-thumb{background:rgba(26,28,28,.2);border-radius:9999px}
 .videos__row::-webkit-scrollbar-track{background:transparent}
+/* 右边缘渐隐提示：暗示「后面还有内容，可滑动」 */
+.videos__row::after{
+  content:'';position:absolute;right:0;top:1rem;bottom:1.25rem;width:64px;
+  background:linear-gradient(to right,transparent,var(--cream));
+  pointer-events:none;
+}
 .vitem{
-  flex:0 0 auto;width:clamp(160px,20vw,240px);
+  flex:0 0 auto;width:clamp(140px,36vw,220px);
   scroll-snap-align:start;
   border-radius:1rem;overflow:hidden;background:#000;position:relative;
   border:1px solid rgba(26,28,28,.12);transition:transform .4s,box-shadow .4s;
