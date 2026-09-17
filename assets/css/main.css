@@ -218,6 +218,52 @@ body.locked{overflow:hidden}
 .pv__t{font-weight:700;font-size:clamp(.95rem,.88rem+.3vw,1.06rem);letter-spacing:-.02em;line-height:1.3}
 
 /* ============================================================
+   about blocks (about.html)
+   ============================================================ */
+.blks{display:flex;flex-direction:column}
+.blk{display:grid;grid-template-columns:1fr;gap:.75rem;
+  padding-block:clamp(2rem,4vw,3.25rem);border-top:1px solid var(--line)}
+.blk:last-child{border-bottom:1px solid var(--line)}
+@media(min-width:820px){
+  .blk{grid-template-columns:minmax(80px,.14fr) minmax(0,.86fr);gap:clamp(2rem,4vw,3.5rem)}
+}
+.blk__n{font-family:var(--sans);font-weight:700;font-size:.78rem;letter-spacing:.02em;
+  color:var(--muted);padding-top:.8rem}
+.blk h2{font-size:clamp(1.4rem,1.1rem+1.3vw,2.1rem);font-weight:900;letter-spacing:-.03em;
+  line-height:1.15;margin-bottom:1rem}
+.blk p{font-size:clamp(1rem,.95rem+.3vw,1.12rem);line-height:1.78;font-weight:300;
+  color:rgba(26,28,28,.75);max-width:60ch}
+
+/* 我做了什么 */
+.did{list-style:none;display:grid;grid-template-columns:1fr;gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+@media(min-width:680px){.did{grid-template-columns:repeat(2,1fr)}}
+.did li{background:var(--cream);padding:1.05rem 1.35rem;display:flex;align-items:center;gap:1.1rem;
+  transition:background .4s}
+.did li:hover{background:var(--cream-2)}
+.did li i{font-family:var(--sans);font-weight:700;font-size:.75rem;letter-spacing:.02em;
+  color:var(--muted);flex:none}
+.did li span{font-size:1rem;font-weight:500;letter-spacing:-.01em}
+
+/* 最终产物 */
+.deliver{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:1.5rem;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+@media(min-width:820px){.deliver{grid-template-columns:repeat(4,1fr)}}
+.deliver>div{background:var(--cream);padding:clamp(1.2rem,2.4vw,1.7rem);transition:background .4s}
+.deliver>div:hover{background:var(--cream-2)}
+.deliver b{display:block;font-size:clamp(1.9rem,1.4rem+2vw,2.9rem);font-weight:900;
+  letter-spacing:-.045em;line-height:1}
+.deliver span{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--muted);margin-top:.65rem}
+
+/* 我的思考 */
+.think{margin:0;padding-left:clamp(1.1rem,2.2vw,1.75rem);border-left:3px solid var(--dark)}
+.think p{font-size:clamp(1.1rem,1rem+.7vw,1.5rem);line-height:1.65;font-weight:500;
+  letter-spacing:-.02em;max-width:34ch;color:var(--dark)}
+.think em{font-style:normal;color:var(--cream);background:var(--dark);
+  padding:.12em .38em;border-radius:5px}
+
+/* ============================================================
    section
    ============================================================ */
 section{position:relative}
